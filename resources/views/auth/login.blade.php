@@ -1,17 +1,24 @@
 @extends('templates.guest')
 @section('content')
   <div class="login-box">
-    <div class="login-logo">
-      <a href="../../index2.html"><b>Login</b>Tatib</a>
-    </div>
+    @if($errors->any())
+      <div class="alert alert-danger">
+        <ul>
+          @foreach($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    @endif
     <!-- /.login-logo -->
     <div class="card">
       <div class="card-body login-card-body">
-        <p class="login-box-msg">Sign in to App Tatib</p>
+        <p class="login-box-msg"><b>Sign in to App Tatib</b></p>
 
-        <form action="../../index3.html" method="post">
+        <form action="{{ route('proses.login') }}" method="post">
+          @csrf
           <div class="input-group mb-3">
-            <input type="email" class="form-control" placeholder="Email">
+            <input type="email" class="form-control" placeholder="Email" name="email" value="{{ old('email') }}">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-envelope"></span>
@@ -19,7 +26,7 @@
             </div>
           </div>
           <div class="input-group mb-3">
-            <input type="password" class="form-control" placeholder="Password">
+            <input type="password" class="form-control" placeholder="Password" name="password">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-lock"></span>
@@ -37,9 +44,9 @@
             </div>
           </div>
           <div class="social-auth-links text-center mb-3">
-            <a href="#" class="btn btn-block btn-primary">
+            <button type="submit" class="btn btn-block btn-primary">
               Sign In
-            </a>
+            </button>
           </div>
         </form>
 

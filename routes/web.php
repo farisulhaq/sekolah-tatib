@@ -1,5 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Guru\GuruController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Siswa\SiswaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,8 +19,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('templates.app');
+Route::prefix('admin')->middleware(['auth', 'level:admin'])->group(function () {
+  Route::get('/', [AdminController::class, 'index'])->name('admin.index');
 });
-Route::view('/login', 'auth.login');
-Route::view('/register', 'auth.register');
+
+Route::prefix('guru')->middleware(['auth', 'level:guru'])->group(function () {
+  Route::get('/', [GuruController::class, 'index'])->name('guru.index');
+});
+
+Route::prefix('siswa')->middleware(['auth', 'level:siswa'])->group(function () {
+  Route::get('/', [SiswaController::class, 'index'])->name('siswa.index');
+});
+
+Route::middleware('auth')->group(function () {
+  Route::get('/', [HomeController::class, 'index'])->name('home');
+  Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
+});
+
+Route::middleware('guest')->group(function () {
+  Route::get('/login', [LoginController::class, 'create'])->name('login');
+  Route::post('/login', [LoginController::class, 'store'])->name('proses.login');
+
+  Route::get('/register', [RegisterController::class, 'create'])->name('register');
+  Route::post('/register', [RegisterController::class, 'store'])->name('proses.register');
+});
+
