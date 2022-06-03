@@ -12,7 +12,7 @@
     @endif
     <div class="card">
       <div class="card-body register-card-body">
-        <p class="login-box-msg"><b>Register</b></p>
+        <p class="login-box-msg"><b>Register Siswa</b></p>
 
         <form action="{{ route('proses.register') }}" method="post">
           @csrf
@@ -64,7 +64,7 @@
             >
           </div>
         </form>
-        <a href="login.html" class="text-center">I already have a membership</a>
+        <a href="{{ route('login') }}" class="text-center">I already have a membership</a>
       </div>
       <!-- /.form-box -->
     </div><!-- /.card -->

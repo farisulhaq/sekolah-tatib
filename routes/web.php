@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::prefix('admin')->middleware(['auth', 'level:admin'])->group(function () {
   Route::get('/', [AdminController::class, 'index'])->name('admin.index');
 });
@@ -32,11 +33,12 @@ Route::prefix('siswa')->middleware(['auth', 'level:siswa'])->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-  Route::get('/', [HomeController::class, 'index'])->name('home');
+  Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
   Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 });
 
 Route::middleware('guest')->group(function () {
+  Route::view('/', 'home');
   Route::get('/login', [LoginController::class, 'create'])->name('login');
   Route::post('/login', [LoginController::class, 'store'])->name('proses.login');
 

@@ -54,7 +54,7 @@
           <a href="forgot-password.html">I forgot my password</a>
         </p> --}}
         <p class="mb-0">
-          <a href="register.html" class="text-center">Create new account</a>
+          <a href="{{ route('register') }}" class="text-center">Create new account</a>
         </p>
       </div>
       <!-- /.login-card-body -->

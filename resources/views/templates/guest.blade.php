@@ -3,11 +3,16 @@
 
 <head>
   @include('templates.partials.head')
-  <title>Tatib Login</title>
+  <title>
+    @yield('title', 'SMAN 1 AMBUNTEN')
+  </title>
 </head>
 
-<body class="hold-transition login-page">
-  @yield('content')
+<body>
+  {{-- @include('templates.partials.navbar') --}}
+  <div class="hold-transition login-page bg-white">
+    @yield('content')
+  </div>
 
   @include('templates.partials.script')
 </body>

@@ -3,7 +3,9 @@
 
 <head>
   @include('templates.partials.head')
-  <title>AdminLTE 3 | Dashboard</title>
+  <title>
+    @yield('title', 'SMAN 1 AMBUNTEN')
+  </title>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -16,7 +18,9 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
-      @yield('content')
+      <div class="content">
+        @yield('content')
+      </div>
     </div>
     <!-- /.content-wrapper -->
     @include('templates.partials.footer')
