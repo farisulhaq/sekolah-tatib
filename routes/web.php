@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminGuruController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Guru\GuruController;
@@ -21,15 +22,16 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::prefix('admin')->middleware(['auth', 'level:admin'])->group(function () {
-  Route::get('/', [AdminController::class, 'index'])->name('admin.index');
+  Route::get('/', [AdminController::class, 'index'])->name('admin.home');
+  Route::resource('/guru', AdminGuruController::class);
 });
 
 Route::prefix('guru')->middleware(['auth', 'level:guru'])->group(function () {
-  Route::get('/', [GuruController::class, 'index'])->name('guru.index');
+  Route::get('/', [GuruController::class, 'index'])->name('guru.home');
 });
 
 Route::prefix('siswa')->middleware(['auth', 'level:siswa'])->group(function () {
-  Route::get('/', [SiswaController::class, 'index'])->name('siswa.index');
+  Route::get('/', [SiswaController::class, 'index'])->name('siswa.home');
 });
 
 Route::middleware('auth')->group(function () {
