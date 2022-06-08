@@ -28,11 +28,13 @@
               </p>
             </a>
           </li>
+          {{-- management user --}}
           <li class="nav-item">
-            <a href="#" class="nav-link {{ request()->routeIs('guru.*') || request()->routeIs('siswa.*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+            <a href=""
+              class="nav-link {{ request()->routeIs('guru.*') || request()->routeIs('siswa.*') ? 'active' : '' }}">
+              <i class="nav-icon fa-solid fa-user-check"></i>
               <p>
-                Menagement User
+                Management User
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -51,12 +53,55 @@
               </li>
             </ul>
           </li>
+          {{-- management kelas --}}
+          {{-- <li class="nav-item">
+            <a href="" class="nav-link">
+              <i class="nav-icon fa-solid fa-school-flag"></i>
+              <p>
+                Menagement Kelas
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview" style="display: none;">
+              <li class="nav-item">
+                <a href="{{ route('guru.index') }}" class="nav-link">
+                  <i class="fa-solid fa-user-group nav-icon"></i>
+                  <p>Kelas</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('siswa.index') }}" class="nav-link">
+                  <i class="fa-solid fa-users nav-icon"></i>
+                  <p>Wali Kelas</p>
+                </a>
+              </li>
+            </ul>
+          </li> --}}
+          {{-- management kasus --}}
+          <li class="nav-item">
+            <a href=""
+              class="nav-link {{ request()->routeIs('kasus.*') ? 'active' : '' }}">
+              <i class="nav-icon fa-solid fa-ribbon"></i>
+              <p>
+                Management kasus
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview" style="display: none;">
+              <li class="nav-item">
+                <a href="{{ route('kasus.index') }}" class="nav-link">
+                  <i class=" nav-icon fa-solid fa-handcuffs"></i>
+                  <p>kasus</p>
+                </a>
+              </li>
+            </ul>
+          </li>
         @elseif (auth()->user()->user_role->role->name == 'guru')
           <li class="nav-item">
             <a href="{{ route('guru.home') }}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Guru
+                Dashboard
               </p>
             </a>
           </li>

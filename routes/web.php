@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Siswa\SiswaController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\AdminGuruController;
+use App\Http\Controllers\Admin\AdminKasusController;
 use App\Http\Controllers\Admin\AdminSiswaController;
 
 /*
@@ -26,6 +27,7 @@ Route::prefix('admin')->middleware(['auth', 'level:admin'])->group(function () {
   Route::get('/', [AdminController::class, 'index'])->name('admin.home');
   Route::resource('/guru', AdminGuruController::class); // crud guru
   Route::resource('/siswa', AdminSiswaController::class); // crud siswa
+  Route::resource('/kasus', AdminKasusController::class); // crud Kasus
 });
 
 Route::prefix('guru')->middleware(['auth', 'level:guru'])->group(function () {

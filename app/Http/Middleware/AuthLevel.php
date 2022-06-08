@@ -19,7 +19,8 @@ class AuthLevel
         if (in_array(auth()->user()->user_role->role->name, $levels)) {
             return $next($request);
         }
+        abort(403);
 
-        abort(405);
+        
     }
 }
