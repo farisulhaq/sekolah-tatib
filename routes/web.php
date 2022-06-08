@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\AdminGuruController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Guru\GuruController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Siswa\SiswaController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Guru\GuruController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Siswa\SiswaController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Admin\AdminGuruController;
+use App\Http\Controllers\Admin\AdminSiswaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->middleware(['auth', 'level:admin'])->group(function () {
   Route::get('/', [AdminController::class, 'index'])->name('admin.home');
-  Route::resource('/guru', AdminGuruController::class);
+  Route::resource('/guru', AdminGuruController::class); // crud guru
+  Route::resource('/siswa', AdminSiswaController::class); // crud siswa
 });
 
 Route::prefix('guru')->middleware(['auth', 'level:guru'])->group(function () {

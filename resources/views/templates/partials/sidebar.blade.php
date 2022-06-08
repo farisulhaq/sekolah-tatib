@@ -24,12 +24,12 @@
               class="nav-link {{ request()->routeIs('admin.home') ? 'active' : '' }}">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Admin
+                Dashborad
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link {{ request()->routeIs('guru.*') ? 'active' : '' }}">
+            <a href="#" class="nav-link {{ request()->routeIs('guru.*') || request()->routeIs('siswa.*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Menagement User
@@ -44,7 +44,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../index2.html" class="nav-link">
+                <a href="{{ route('siswa.index') }}" class="nav-link">
                   <i class="fa-solid fa-users nav-icon"></i>
                   <p>Siswa</p>
                 </a>
