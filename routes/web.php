@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Guru\GuruController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\PelanggaranController;
 use App\Http\Controllers\Siswa\SiswaController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\AdminGuruController;
@@ -39,6 +40,7 @@ Route::prefix('siswa')->middleware(['auth', 'level:siswa'])->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+  Route::resource('/pelanggaran', PelanggaranController::class);
   Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
   Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 });

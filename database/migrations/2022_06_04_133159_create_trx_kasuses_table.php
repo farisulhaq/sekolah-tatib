@@ -21,6 +21,7 @@ class CreateTrxKasusesTable extends Migration
             $table->foreign('guru_id')->references('id')->on('gurus')->cascadeOnDelete()->cascadeOnUpdate();
             $table->unsignedBigInteger('kasus_id');
             $table->foreign('kasus_id')->references('id')->on('kasuses')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->date('tannggal_pelanggaran');
             $table->string('gambar');
             $table->timestamps();
         });

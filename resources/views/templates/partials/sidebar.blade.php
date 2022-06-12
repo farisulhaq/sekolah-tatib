@@ -79,8 +79,7 @@
           </li> --}}
           {{-- management kasus --}}
           <li class="nav-item">
-            <a href=""
-              class="nav-link {{ request()->routeIs('kasus.*') ? 'active' : '' }}">
+            <a class="nav-link {{ request()->routeIs('kasus.*') ? 'active' : '' }}">
               <i class="nav-icon fa-solid fa-ribbon"></i>
               <p>
                 Management kasus
@@ -95,6 +94,14 @@
                 </a>
               </li>
             </ul>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('pelanggaran.index') }}" class="nav-link">
+              <i class="nav-icon fa-solid fa-person-circle-xmark"></i>
+              <p>
+                Pelanggaran
+              </p>
+            </a>
           </li>
         @elseif (auth()->user()->user_role->role->name == 'guru')
           <li class="nav-item">
