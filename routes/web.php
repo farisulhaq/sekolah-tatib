@@ -39,8 +39,11 @@ Route::prefix('siswa')->middleware(['auth', 'level:siswa'])->group(function () {
   Route::get('/', [SiswaController::class, 'index'])->name('siswa.home');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'level:admin,guru'])->group(function () {
   Route::resource('/pelanggaran', PelanggaranController::class);
+});
+
+Route::middleware('auth')->group(function () {
   Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
   Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 });

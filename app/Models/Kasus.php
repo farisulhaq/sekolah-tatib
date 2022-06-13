@@ -10,4 +10,9 @@ class Kasus extends Model
     use HasFactory;
 
     protected $fillable = ['kode_kasus', 'nama_kasus', 'poin_kasus'];
+
+    public function trxkasus()
+    {
+        return $this->hasMany(TrxKasus::class);
+    }
 }

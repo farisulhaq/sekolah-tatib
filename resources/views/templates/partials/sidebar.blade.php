@@ -95,14 +95,6 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item">
-            <a href="{{ route('pelanggaran.index') }}" class="nav-link">
-              <i class="nav-icon fa-solid fa-person-circle-xmark"></i>
-              <p>
-                Pelanggaran
-              </p>
-            </a>
-          </li>
         @elseif (auth()->user()->user_role->role->name == 'guru')
           <li class="nav-item">
             <a href="{{ route('guru.home') }}" class="nav-link">
@@ -118,6 +110,16 @@
               <i class="nav-icon fas fa-th"></i>
               <p>
                 siswa
+              </p>
+            </a>
+          </li>
+        @endif
+        @if (auth()->user()->user_role->role->name == 'admin' || auth()->user()->user_role->role->name == 'guru')
+          <li class="nav-item">
+            <a href="{{ route('pelanggaran.index') }}" class="nav-link">
+              <i class="nav-icon fa-solid fa-person-circle-xmark"></i>
+              <p>
+                Pelanggaran
               </p>
             </a>
           </li>

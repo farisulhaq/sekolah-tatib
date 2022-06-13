@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Guru;
 use App\Models\Kasus;
 use App\Models\Siswa;
 use App\Models\TrxKasus;
@@ -16,7 +17,14 @@ class PelanggaranController extends Controller
      */
     public function index()
     {
-        return view('pages.pelanggaran.indexPelanggaran');
+        if (auth()->user()->user_role->role->name == 'guru') {
+            return view('pages.pelanggaran.indexPelanggaran', [
+                'trxkasus' => TrxKasus::whereGuruId(auth()->user()->guru->id)->with('siswa', 'guru', 'kasus')->simplePaginate(4)
+            ]);
+        }
+        return view('pages.pelanggaran.indexPelanggaran', [
+            'trxkasus' => TrxKasus::with('siswa', 'guru', 'kasus')->simplePaginate(4)
+        ]);
     }
 
     /**
@@ -28,6 +36,7 @@ class PelanggaranController extends Controller
     {
         return view('pages.pelanggaran.createPelanggaran', [
             'siswas' => Siswa::all(),
+            'gurus' => Guru::all(),
             'kasuses' => Kasus::all()
         ]);
     }
@@ -40,7 +49,24 @@ class PelanggaranController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $kasus = $request->validate([
+            'siswa_id' => ['required'],
+            'guru_id' => ['required'],
+            'kasus_id' => ['required'],
+            'tanggal_pelanggaran' => ['required', 'date'],
+            'gambar' => ['nullable', 'image', 'file', 'max:2048'],
+        ]);
+
+        if ($request->hasFile('gambar')) {
+            $kasus['gambar'] = $fileName = time() . $request->gambar->getClientOriginalName();
+            $request->gambar->storeAs('public/kasus', $fileName);
+        } else {
+            $kasus['gambar'] = 'default.png';
+        }
+
+        TrxKasus::create($kasus);
+
+        return redirect()->route('pelanggaran.index')->with('success', 'Kasus berhasil ditambahkan');
     }
 
     /**
