@@ -22,7 +22,7 @@
           <li class="nav-item">
             <a href="{{ route('admin.home') }}"
               class="nav-link {{ request()->routeIs('admin.home') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fa-solid fa-gauge"></i>
               <p>
                 Dashborad
               </p>
