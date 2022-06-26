@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\AdminGuruController;
 use App\Http\Controllers\Admin\AdminKasusController;
 use App\Http\Controllers\Admin\AdminSiswaController;
+use App\Http\Requests\AdminSiswaRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,7 @@ Route::prefix('admin')->middleware(['auth', 'level:admin'])->group(function () {
   Route::resource('/guru', AdminGuruController::class); // crud guru
   Route::resource('/siswa', AdminSiswaController::class); // crud siswa
   Route::resource('/kasus', AdminKasusController::class); // crud Kasus
+  Route::post('/siswa/import', [AdminSiswaController::class, 'importExcel'])->name('siswa.import');
 });
 
 Route::prefix('guru')->middleware(['auth', 'level:guru'])->group(function () {

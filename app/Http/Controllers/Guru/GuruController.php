@@ -6,6 +6,7 @@ use App\Models\Guru;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\TrxKasus;
 
 class GuruController extends Controller
 {
@@ -14,6 +15,7 @@ class GuruController extends Controller
         return view('pages.guru.home', [
             'totalGuru' => Guru::count(),
             'totalSiswa' => Siswa::count(),
+            'totalPelanggaran' => TrxKasus::whereGuruId(auth()->user()->guru->id)->count(),
         ]);
     }
 }

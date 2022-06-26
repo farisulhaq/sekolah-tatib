@@ -37,7 +37,7 @@
             <span class="info-box-icon bg-warning"><i class="far fa-copy"></i></span>
             <div class="info-box-content">
               <span class="info-box-text">Kelas</span>
-              <span class="info-box-number">13,648</span>
+              <span class="info-box-number">0</span>
             </div>
 
           </div>
@@ -49,7 +49,7 @@
             <span class="info-box-icon bg-danger"><i class="far fa-star"></i></span>
             <div class="info-box-content">
               <span class="info-box-text">Pelanggaran</span>
-              <span class="info-box-number">93,139</span>
+              <span class="info-box-number">{{ $totalPelanggaran }}</span>
             </div>
 
           </div>

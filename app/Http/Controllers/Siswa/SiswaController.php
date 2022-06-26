@@ -38,6 +38,7 @@ class SiswaController extends Controller
             'trxkasus' => $trxkasus,
             'total' => $total
         ])->setPaper('letter');
+        // return $pdf->stream();
         return $pdf->download(auth()->user()->siswa->nis . time() . '.pdf');
     }
 }

@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use App\Models\Siswa;
 use App\Models\UserRole;
+use Illuminate\Support\Str;
+use App\Imports\SiswaImport;
 use App\Models\JenisKelamin;
+use Facade\FlareClient\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\AdminSiswaRequest;
-use Facade\FlareClient\View;
 
 class AdminSiswaController extends Controller
 {
@@ -26,11 +29,6 @@ class AdminSiswaController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('pages.admin.siswa.create', [
@@ -38,12 +36,6 @@ class AdminSiswaController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(AdminSiswaRequest $request)
     {
         $user = User::create([
@@ -61,23 +53,6 @@ class AdminSiswaController extends Controller
         return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Siswa  $siswa
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Siswa $siswa)
-    {
-        // 
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Siswa  $siswa
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Siswa $siswa)
     {
         return view('pages.admin.siswa.edit', [
@@ -86,13 +61,6 @@ class AdminSiswaController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Siswa  $siswa
-     * @return \Illuminate\Http\Response
-     */
     public function update(AdminSiswaRequest $request, Siswa $siswa)
     {
         $siswa->update($request->all());
@@ -100,16 +68,21 @@ class AdminSiswaController extends Controller
         return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil diubah');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Siswa  $siswa
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Siswa $siswa)
     {
         $siswa->user->delete();
 
         return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil dihapus');
+    }
+
+    public function importExcel(Request $request)
+    {
+        $request->validate([
+            'fileExcel' => ['required', 'mimes:csv,xls,xlsx']
+        ]);
+        // import data
+        Excel::import(new SiswaImport, $request->fileExcel);
+
+        return redirect()->route('siswa.index')->with('success', 'Import Siswa Berhasil');
     }
 }
